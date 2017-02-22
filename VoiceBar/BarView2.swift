@@ -56,11 +56,8 @@ class BarView2: UIView {
 		
 		do {
 			let url = URL(string: NSTemporaryDirectory().appending("tmp.caf"))!
-			Swift.print("recording to")
-			Swift.print(url)
 			try recorder = AVAudioRecorder(url: url, settings: settings)
 		} catch {
-			Swift.print("error!")
 		}
 		
 		recorder.prepareToRecord()
@@ -131,8 +128,6 @@ class BarView2: UIView {
 	func updateMeter() {
 		updated?(pos)
 		label.text = "\(Int(pos))dB"
-		
-		print(level)
 		
 		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
 		//		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)

@@ -23,25 +23,11 @@ class BarView: UIView {
 	var mic: AKMicrophone!
 	var tracker: AKAmplitudeTracker!
 	var silence: AKBooster!
+	var boost: AKBooster!
 	
 	var level: Float {
-		
-		
-		let decibels = Float(20 * log10(tracker.amplitude * 1.3))
-		
-		if decibels < minDecibels {
-			return 0
-		} else if decibels >= 0 {
-			return 1
-		}
-		
-		let minAmp = powf(10, 0.05 * minDecibels)
-		let inverseAmpRange = 1 / (1 - minAmp)
-		let amp = powf(10, 0.05 * decibels)
-		let adjAmp = (amp - minAmp) * inverseAmpRange
-		
-		return sqrtf(adjAmp)
-		
+		print((Float(tracker.amplitude)))
+		return (Float(tracker.amplitude))
 	}
 	
 	func start() {
@@ -49,7 +35,9 @@ class BarView: UIView {
 		AKSettings.audioInputEnabled = true
 		
 		mic = AKMicrophone()
-		tracker = AKAmplitudeTracker.init(mic)
+		boost = AKBooster(mic, gain: 3)
+		tracker = AKAmplitudeTracker.init(boost)
+		
 		silence = AKBooster(tracker, gain: 0)
 		
 		AudioKit.output = silence
@@ -128,8 +116,6 @@ class BarView: UIView {
 	func updateMeter() {
 		updated?(pos)
 		label.text = "\(Int(pos))dB"
-		
-		print(level)
 		
 		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
 //		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
