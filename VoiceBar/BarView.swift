@@ -26,13 +26,23 @@ class BarView: UIView {
 	var boost: AKBooster!
 	
 	var level: Float {
-//		print((Float(tracker.amplitude)))
+		
+		//0.0001 = -80dB
+		//0.0003 = -70dB
+		//0.0009 = -60dB
+		//0.0029 = -50dB
+		//0.009  = -40dB
+		//0.029  = -30dB
+		//0.09   = -20dB
+		//0.29   = -10dB
+		//1      =   0dB
+		
 		return Float(Double(20) * log10(tracker.amplitude))
 	}
 	
 	var pos: Float {
 		
-		let decibels = level
+		let decibels = Float(tracker.amplitude)
 		
 		if decibels < minDecibels {
 			return 0
@@ -54,6 +64,7 @@ class BarView: UIView {
 		
 		AKSettings.audioInputEnabled = true
 		
+		
 		mic = AKMicrophone()
 		boost = AKBooster(mic, gain: 3)
 		tracker = AKAmplitudeTracker.init(boost)
@@ -61,6 +72,8 @@ class BarView: UIView {
 		silence = AKBooster(tracker, gain: 0)
 		
 		AudioKit.output = silence
+		
+		tracker.halfPowerPoint = 0
 		
 		layer.backgroundColor = UIColor.black.cgColor
 		
@@ -133,8 +146,8 @@ class BarView: UIView {
 	func updateMeter() {
 		updated?(level)
 		label.text = "\(Int(level))dB"
-		print(pos)
-		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(pos), height: bar.bounds.size.height)
+		print(tracker.amplitude)
+		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(tracker.amplitude), height: bar.bounds.size.height)
 //		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
 	}
 	
