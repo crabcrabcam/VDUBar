@@ -1,33 +1,31 @@
 //
-//  BarView.swift
+//  BarView2.swift
 //  VoiceBar
 //
-//  Created by Cameron Reid on 21/02/2017.
+//  Created by Cameron Reid on 22/02/2017.
 //  Copyright © 2017 Cocoon Development Ltd. All rights reserved.
 //
 
 import UIKit
-import AVFoundation
 import AudioKit
+import AVFoundation
 
-class BarView: UIView {
-
-
+class BarView2: UIView {
+	
 	var bar: CAGradientLayer!
 	var layerMask: CALayer!
+	var recorder: AVAudioRecorder!
 	var timer: Timer!
 	var label: UITextField!
 	let minDecibels: Float = -80
 	public var updated: ((Float) -> Void)?
 	
-	var mic: AKMicrophone!
-	var tracker: AKAmplitudeTracker!
-	var silence: AKBooster!
-	
+	// Convert the raw decibel into a level from 0 - 1
 	var level: Float {
+		recorder.updateMeters()
+		guard let recorder = recorder else { return 100 }
 		
-		
-		let decibels = Float(20 * log10(tracker.amplitude * 1.3))
+		let decibels = recorder.averagePower(forChannel: 0)
 		
 		if decibels < minDecibels {
 			return 0
@@ -44,35 +42,43 @@ class BarView: UIView {
 		
 	}
 	
+	var pos: Float {
+		// linear level * by max + min scale (20 - 130db)
+		return level * 130 + 20
+	}
+	
+	var audioSession = AVAudioSession.sharedInstance()
+	
 	func start() {
 		
-		AKSettings.audioInputEnabled = true
+		try? audioSession.setCategory(AVAudioSessionCategoryPlayAndRecord)
+		try? audioSession.setActive(true)
 		
-		mic = AKMicrophone()
-		tracker = AKAmplitudeTracker.init(mic)
-		silence = AKBooster(tracker, gain: 0)
+		do {
+			let url = URL(string: NSTemporaryDirectory().appending("tmp.caf"))!
+			Swift.print("recording to")
+			Swift.print(url)
+			try recorder = AVAudioRecorder(url: url, settings: settings)
+		} catch {
+			Swift.print("error!")
+		}
 		
-		AudioKit.output = silence
+		recorder.prepareToRecord()
+		recorder.isMeteringEnabled = true
+		recorder.record()
 		
 		layer.backgroundColor = UIColor.black.cgColor
 		
 		addBar()
 		addLabel()
 		
-		
-		AudioKit.start()
 		timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(updateMeter), userInfo: nil, repeats: true)
 	}
-
+	
 	
 	override public init(frame: CGRect) {
 		super.init(frame: frame)
 		start()
-	}
-	
-	var pos: Float {
-		// linear level * max + min scale (20 - 130db)
-		return (Float(level) * Float(130)) + Float(20)
 	}
 	
 	let settings: [String:Any] = [
@@ -83,18 +89,15 @@ class BarView: UIView {
 		AVLinearPCMIsBigEndianKey: false,
 		AVLinearPCMIsFloatKey: false
 	]
-		
-		
 	
-	
+
 	required public init?(coder: NSCoder) {
 		super.init(coder: coder)
-//		fatalError("init(coder:) has not been implemented")
+		//		fatalError("init(coder:) has not been implemented")
 	}
 	
-	var audioSession = AVAudioSession.sharedInstance()
-	
-	
+
+
 	func addLabel() {
 		label = UITextField(frame: CGRect(x: 0, y: 50, width: 200, height: 50))
 		label.textColor = UIColor.white
@@ -132,7 +135,7 @@ class BarView: UIView {
 		print(level)
 		
 		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
-//		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
+		//		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
 	}
-	
+
 }

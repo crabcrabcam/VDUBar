@@ -22,22 +22,33 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Ud-i8-NnY" customClass="BarView" customModule="VoiceBar" customModuleProvider="target">
-                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <rect key="frame" x="67" y="185" width="240" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="11H-w4-s1O"/>
                                     <constraint firstAttribute="width" constant="240" id="bWG-Ha-JKf"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZV-HW-cwr" customClass="BarView2" customModule="VoiceBar" customModuleProvider="target">
+                                <rect key="frame" x="67" y="311" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="7Xr-Gp-9RZ"/>
+                                    <constraint firstAttribute="height" constant="128" id="gwA-Af-VBA"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="9Ud-i8-NnY" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="UBD-xh-WJJ"/>
-                            <constraint firstItem="9Ud-i8-NnY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="isF-iu-zPA"/>
+                            <constraint firstItem="YZV-HW-cwr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="41.5" id="Wxz-I2-QWe"/>
+                            <constraint firstItem="YZV-HW-cwr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d8c-Tp-1Bm"/>
+                            <constraint firstItem="9Ud-i8-NnY" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-84.5" id="isF-iu-zPA"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="barView" destination="9Ud-i8-NnY" id="e8A-gZ-3a5"/>
+                        <outlet property="barView2" destination="YZV-HW-cwr" id="mCv-GN-d4d"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

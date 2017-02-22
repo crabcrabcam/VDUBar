@@ -15,6 +15,7 @@
 		7E7611B21E5C7E1800DB594D /* VoiceBarTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7611B11E5C7E1800DB594D /* VoiceBarTests.swift */; };
 		7E7611BD1E5C7E1800DB594D /* VoiceBarUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7611BC1E5C7E1800DB594D /* VoiceBarUITests.swift */; };
 		7E7611CB1E5C80C700DB594D /* BarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7611CA1E5C80C700DB594D /* BarView.swift */; };
+		7EC385AE1E5D8FCF002BE533 /* BarView2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EC385AD1E5D8FCF002BE533 /* BarView2.swift */; };
 		D092F5B6AFC0565D6A4757CE /* Pods_VoiceBarUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3590EDC39A0EB9DBC1176269 /* Pods_VoiceBarUITests.framework */; };
 		D6DF3462E32493E0F98220B5 /* Pods_VoiceBarTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E377EC9AC5ABA30BE2AB4FA1 /* Pods_VoiceBarTests.framework */; };
 		E4DB42A070A0F3B2AE4F1621 /* Pods_VoiceBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 24B079E3981BEBE9E366F6B4 /* Pods_VoiceBar.framework */; };
@@ -58,6 +59,7 @@
 		7E7611BC1E5C7E1800DB594D /* VoiceBarUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoiceBarUITests.swift; sourceTree = "<group>"; };
 		7E7611BE1E5C7E1800DB594D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7E7611CA1E5C80C700DB594D /* BarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView.swift; sourceTree = "<group>"; };
+		7EC385AD1E5D8FCF002BE533 /* BarView2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BarView2.swift; sourceTree = "<group>"; };
 		A7230313A46574CD010C921E /* Pods-VoiceBarTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBarTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBarTests/Pods-VoiceBarTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E377EC9AC5ABA30BE2AB4FA1 /* Pods_VoiceBarTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_VoiceBarTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F3FBA07417AFF097F4A367AB /* Pods-VoiceBarTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceBarTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceBarTests/Pods-VoiceBarTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				7E7611A51E5C7E1800DB594D /* LaunchScreen.storyboard */,
 				7E7611A81E5C7E1800DB594D /* Info.plist */,
 				7E7611CA1E5C80C700DB594D /* BarView.swift */,
+				7EC385AD1E5D8FCF002BE533 /* BarView2.swift */,
 			);
 			path = VoiceBar;
 			sourceTree = "<group>";
@@ -455,6 +458,7 @@
 				7E7611CB1E5C80C700DB594D /* BarView.swift in Sources */,
 				7E76119F1E5C7E1800DB594D /* ViewController.swift in Sources */,
 				7E76119D1E5C7E1800DB594D /* AppDelegate.swift in Sources */,
+				7EC385AE1E5D8FCF002BE533 /* BarView2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

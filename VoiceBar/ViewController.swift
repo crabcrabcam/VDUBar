@@ -13,10 +13,12 @@ class ViewController: UIViewController {
 	
 	
 	@IBOutlet weak var barView: BarView!
+	@IBOutlet weak var barView2: BarView2!
 	
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		barView.start()
+		barView2.start()
 	}
 	
 }
