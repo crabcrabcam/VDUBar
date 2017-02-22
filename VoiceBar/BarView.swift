@@ -26,8 +26,28 @@ class BarView: UIView {
 	var boost: AKBooster!
 	
 	var level: Float {
-		print((Float(tracker.amplitude)))
-		return (Float(tracker.amplitude))
+//		print((Float(tracker.amplitude)))
+		return Float(Double(20) * log10(tracker.amplitude))
+	}
+	
+	var pos: Float {
+		
+		let decibels = level
+		
+		if decibels < minDecibels {
+			return 0
+		} else if decibels >= 0 {
+			return 1
+		}
+		
+		let minAmp = powf(10, 0.05 * minDecibels)
+		let inverseAmpRange = 1 / (1 - minAmp)
+		let amp = powf(10, 0.05 * decibels)
+		let adjAmp = (amp - minAmp) * inverseAmpRange
+//		let sqrtAdjAmp = sqrtf(adjAmp)
+		return sqrt(adjAmp)
+		
+//		return (sqrtAdjAmp * 130) + 20
 	}
 	
 	func start() {
@@ -58,10 +78,7 @@ class BarView: UIView {
 		start()
 	}
 	
-	var pos: Float {
-		// linear level * max + min scale (20 - 130db)
-		return (Float(level) * Float(130)) + Float(20)
-	}
+	
 	
 	let settings: [String:Any] = [
 		AVFormatIDKey: kAudioFormatLinearPCM,
@@ -114,10 +131,10 @@ class BarView: UIView {
 	
 	
 	func updateMeter() {
-		updated?(pos)
-		label.text = "\(Int(pos))dB"
-		
-		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
+		updated?(level)
+		label.text = "\(Int(level))dB"
+		print(pos)
+		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(pos), height: bar.bounds.size.height)
 //		layerMask.frame = CGRect(x: 0, y: 0, width: frame.size.width * CGFloat(level), height: bar.bounds.size.height)
 	}
 	
